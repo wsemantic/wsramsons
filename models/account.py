@@ -63,5 +63,39 @@ class AccountMove(models.Model):
             _logger.error('WSEM: Error al convertir el PDF a base64: %s', e)
             return False
 
+        # **Buscar un Attachment Existente**
+        attachment = self.env['ir.attachment'].search([
+            ('res_model', '=', 'account.move'),
+            ('res_id', '=', invoice_id),
+            ('mimetype', '=', 'application/pdf'),
+            ('name', '=', f"Invoice_{move.name}.pdf")
+        ], limit=1)
+
+        if attachment:
+            _logger.info('WSEM: Attachment existente encontrado para la factura ID=%s, actualizando...', invoice_id)
+            attachment.write({
+                'datas': pdf_base64,
+                'datas_fname': f"Invoice_{move.name}.pdf",
+                'description': f"PDF de la factura {move.name}",
+            })
+        else:
+            _logger.info('WSEM: Creando nuevo attachment para la factura ID=%s', invoice_id)
+            try:
+                self.env['ir.attachment'].create({
+                    'name': f"Invoice_{move.name}.pdf",
+                    'type': 'binary',
+                    'datas': pdf_base64,
+                    'res_model': 'account.move',
+                    'res_id': invoice_id,
+                    'mimetype': 'application/pdf',
+                    'datas_fname': f"Invoice_{move.name}.pdf",
+                    'description': f"PDF de la factura {move.name}",
+                })
+                _logger.info('WSEM: Attachment creado exitosamente para la factura ID=%s', invoice_id)
+            except Exception as e:
+                _logger.error('WSEM: Error al crear el attachment para la factura ID=%s: %s', invoice_id, e)
+                # Opcional: Puedes decidir si deseas continuar o retornar False en caso de error al adjuntar
+                # return False
+
         _logger.info('WSEM: Finalizando get_invoice_pdf para invoice_id=%s', invoice_id)
         return pdf_base64
