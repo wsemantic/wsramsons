@@ -1,3 +1,4 @@
+# my_module/models/account_move.py
 import logging
 from odoo import models, api
 import base64
@@ -28,8 +29,8 @@ class AccountMove(models.Model):
             # Loguear detalles del reporte
             _logger.info('WSEM: Modelo del Reporte: %s', report._name)
             _logger.info('WSEM: Tipo de Reporte: %s', report.report_type)
-            _logger.info('WSEM: Plantilla del Reporte: %s', report.report_template)
-            _logger.info('WSEM: Nombre del Reporte: %s', report.report_name)
+            _logger.info('WSEM: Plantilla del Reporte (report_name): %s', report.report_name)
+            _logger.info('WSEM: Archivo del Reporte (report_file): %s', report.report_file)
             _logger.info('WSEM: Modelo Relacionado: %s', report.model)
         except ValueError as ve:
             _logger.error('WSEM: No se pudo obtener el reporte %s: %s', report_ref, ve)
