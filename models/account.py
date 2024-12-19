@@ -75,7 +75,7 @@ class AccountMove(models.Model):
             _logger.info('WSEM: Attachment existente encontrado para la factura ID=%s, actualizando...', invoice_id)
             attachment.write({
                 'datas': pdf_base64,
-                'datas_fname': f"Invoice_{move.name}.pdf",
+                # 'datas_fname': f"Invoice_{move.name}.pdf",  # Eliminado para evitar el error
                 'description': f"PDF de la factura {move.name}",
             })
         else:
@@ -88,7 +88,7 @@ class AccountMove(models.Model):
                     'res_model': 'account.move',
                     'res_id': invoice_id,
                     'mimetype': 'application/pdf',
-                    'datas_fname': f"Invoice_{move.name}.pdf",
+                    # 'datas_fname': f"Invoice_{move.name}.pdf",  # Eliminado para evitar el error
                     'description': f"PDF de la factura {move.name}",
                 })
                 _logger.info('WSEM: Attachment creado exitosamente para la factura ID=%s', invoice_id)
