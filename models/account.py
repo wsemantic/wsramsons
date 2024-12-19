@@ -1,4 +1,3 @@
-# my_module/models/account_move.py
 import logging
 from odoo import models, api
 import base64
@@ -20,15 +19,23 @@ class AccountMove(models.Model):
 
         _logger.info('WSEM: Obteniendo referencia al reporte')
         try:
-            # Usa el método adecuado para obtener el reporte desde ir.actions.report
-            report = self.env['ir.actions.report']._get_report_from_name('account.report_invoice_with_payments')
+            # Asegúrate de que 'account.report_invoice_with_payments' es el XML ID correcto
+            report_ref = 'account.report_invoice_with_payments'
+            _logger.info('WSEM: report_ref usado: %s', report_ref)
+            report = self.env['ir.actions.report']._get_report_from_name(report_ref)
             _logger.info('WSEM: Referencia al reporte obtenida correctamente: %s', report)
             
-            # Loguear el tipo de objeto
-            _logger.info('WSEM: Tipo del objeto report: %s', report._name)
-            _logger.info('WSEM: Clase del objeto report: %s', report.__class__)
-        except ValueError:
-            _logger.error('WSEM: No se pudo obtener el reporte account.report_invoice_with_payments')
+            # Loguear detalles del reporte
+            _logger.info('WSEM: Modelo del Reporte: %s', report._name)
+            _logger.info('WSEM: Tipo de Reporte: %s', report.report_type)
+            _logger.info('WSEM: Plantilla del Reporte: %s', report.report_template)
+            _logger.info('WSEM: Nombre del Reporte: %s', report.report_name)
+            _logger.info('WSEM: Modelo Relacionado: %s', report.model)
+        except ValueError as ve:
+            _logger.error('WSEM: No se pudo obtener el reporte %s: %s', report_ref, ve)
+            return False
+        except Exception as e:
+            _logger.error('WSEM: Error inesperado al obtener el reporte %s: %s', report_ref, e)
             return False
 
         # Verificar que el objeto report tiene el método _render_qweb_pdf
@@ -38,7 +45,8 @@ class AccountMove(models.Model):
 
         _logger.info('WSEM: Generando PDF para el ID de factura %s', invoice_id)
         try:
-            pdf_content, content_type = report._render_qweb_pdf([invoice_id])
+            # Asegúrate de pasar un diccionario vacío para 'data'
+            pdf_content, content_type = report._render_qweb_pdf([invoice_id], {})
             _logger.info('WSEM: PDF generado exitosamente. Longitud del contenido: %d bytes', len(pdf_content))
         except Exception as e:
             _logger.error('WSEM: Error al generar el PDF: %s', e)
