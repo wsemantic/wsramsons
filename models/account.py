@@ -1,4 +1,3 @@
-# my_module/models/account_move.py
 import logging
 from odoo import models, api
 import base64
@@ -29,7 +28,7 @@ class AccountMove(models.Model):
             # Loguear detalles del reporte
             _logger.info('WSEM: Modelo del Reporte: %s', report._name)
             _logger.info('WSEM: Tipo de Reporte: %s', report.report_type)
-            _logger.info('WSEM: Plantilla del Reporte (report_name): %s', report.report_name)
+            _logger.info('WSEM: Nombre del Reporte (report_name): %s', report.report_name)
             _logger.info('WSEM: Archivo del Reporte (report_file): %s', report.report_file)
             _logger.info('WSEM: Modelo Relacionado: %s', report.model)
         except ValueError as ve:
@@ -39,15 +38,15 @@ class AccountMove(models.Model):
             _logger.error('WSEM: Error inesperado al obtener el reporte %s: %s', report_ref, e)
             return False
 
-        # Verificar que el objeto report tiene el método _render_qweb_pdf
-        if not hasattr(report, '_render_qweb_pdf'):
-            _logger.error('WSEM: El objeto referenciado no tiene el método _render_qweb_pdf')
+        # Verificar que el objeto report tiene el método get_pdf
+        if not hasattr(report, 'get_pdf'):
+            _logger.error('WSEM: El objeto referenciado no tiene el método get_pdf')
             return False
 
         _logger.info('WSEM: Generando PDF para el ID de factura %s', invoice_id)
         try:
-            # Asegúrate de pasar un diccionario vacío para 'data'
-            pdf_content, content_type = report._render_qweb_pdf([invoice_id], {})
+            # Usa el método get_pdf en lugar de _render_qweb_pdf
+            pdf_content, content_type = report.get_pdf([invoice_id], {})
             _logger.info('WSEM: PDF generado exitosamente. Longitud del contenido: %d bytes', len(pdf_content))
         except Exception as e:
             _logger.error('WSEM: Error al generar el PDF: %s', e)
