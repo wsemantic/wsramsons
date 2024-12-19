@@ -38,15 +38,15 @@ class AccountMove(models.Model):
             _logger.error('WSEM: Error inesperado al obtener el reporte %s: %s', report_ref, e)
             return False
 
-        # Verificar que el objeto report tiene el método get_pdf
-        if not hasattr(report, 'get_pdf'):
-            _logger.error('WSEM: El objeto referenciado no tiene el método get_pdf')
+        # Verificar que el objeto report tiene el método _render_qweb_pdf
+        if not hasattr(report, '_render_qweb_pdf'):
+            _logger.error('WSEM: El objeto referenciado no tiene el método _render_qweb_pdf')
             return False
 
         _logger.info('WSEM: Generando PDF para el ID de factura %s', invoice_id)
         try:
-            # Usa el método get_pdf en lugar de _render_qweb_pdf
-            pdf_content, content_type = report.get_pdf([invoice_id], {})
+            # Pasar report_ref como el primer argumento
+            pdf_content, content_type = report._render_qweb_pdf(report_ref, [invoice_id], {})
             _logger.info('WSEM: PDF generado exitosamente. Longitud del contenido: %d bytes', len(pdf_content))
         except Exception as e:
             _logger.error('WSEM: Error al generar el PDF: %s', e)
