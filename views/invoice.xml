@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- original odoo/addons/account/views/report_invoice.xml -->
-<odoo>
-    <data inherit_id="account.report_invoice_document">
-        <!-- Localización del código de cliente -->
-        <xpath expr="//div[@name='customer_code']" position="after">
-            <div class="col-auto col-3 mw-100 mb-2">
-                <strong>Cod. Comercial:</strong>
-                <p class="m-0" t-field="o.invoice_user_id.partner_id.ref or ''"/>
-            </div>
-        </xpath>
-    </data>
-</odoo>
 
+<odoo>
+        <!-- Extensión del template de la factura -->
+        <template id="report_rs_invoice_document_inherit" inherit_id="account.report_invoice_document">
+            <!-- Localización del código de cliente -->
+            <xpath expr="//div[@id='informations']//div[@name='customer_code']" position="after">
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Salesperson Code:</strong>
+                    <p class="m-0" t-field="o.invoice_user_id.partner_id.ref or ''"/>
+                </div>
+            </xpath>
+        </template>
+</odoo>
 
