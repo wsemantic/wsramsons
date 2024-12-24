@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="account.report_invoice_document"/>
             <field name="arch" type="xml">
                 <!-- Localización del código de cliente -->
-                <xpath expr="//div[@id='informations']//div[@name='customer_code']" position="after">
+                <xpath expr="//div[@name='customer_code']" position="after">
                     <div class="col-auto col-3 mw-100 mb-2">
                         <strong>Cod. Comercial:</strong>
                         <p class="m-0" t-field="o.invoice_user_id.partner_id.ref"/>
