@@ -1,5 +1,5 @@
-<!-- original odoo/addons/account/views/report_invoice.xml -->
 <?xml version="1.0" encoding="utf-8"?>
+<!-- original odoo/addons/account/views/report_invoice.xml -->
 <odoo>
     <data>
         <record id="report_invoice_document_inherit" model="ir.ui.view">
