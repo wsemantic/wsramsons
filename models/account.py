@@ -82,7 +82,7 @@ class AccountMove(models.Model):
             _logger.info('WSEM: Creando nuevo attachment para la factura ID=%s', invoice_id)
             try:
                 self.env['ir.attachment'].create({
-                    'name': f"Invoice_{move.name}.pdf",
+                    'name': f"{move.name}.pdf",
                     'type': 'binary',
                     'datas': pdf_base64,
                     'res_model': 'account.move',
