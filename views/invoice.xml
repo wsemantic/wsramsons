@@ -12,6 +12,14 @@
 									 o.invoice_user_id.partner_id.ref" t-field="o.invoice_user_id.partner_id.ref"/>
 			</div>
 		</xpath>
+		<xpath expr="//table[@name='invoice_line_table']/tbody" position="attributes">            
+            <attribute name="style">font-size: 11px !important;</attribute>            
+        </xpath>
 	</template>
+	<template id="inherit_external_layout" inherit_id="web.external_layout">
+        <xpath expr="//div[@class='footer']" position="attributes">
+            <attribute name="style">font-size: 9px !important;</attribute>
+        </xpath>
+    </template>
 </odoo>
 
