@@ -16,8 +16,8 @@
             <attribute name="style">font-size: 11px !important;</attribute>            
         </xpath>
 	</template>
-	<template id="inherit_external_layout" inherit_id="web.external_layout">
-        <xpath expr="//div[@class='footer']" position="attributes">
+    <template id="inherit_external_layout_boxed" inherit_id="web.external_layout_boxed">
+        <xpath expr="//div[contains(@class, 'footer') and contains(@class, 'o_boxed_footer')]" position="attributes">
             <attribute name="style">font-size: 9px !important;</attribute>
         </xpath>
     </template>
