@@ -17,7 +17,8 @@
         </xpath>
 	</template>
     <template id="inherit_external_layout_boxed" inherit_id="web.external_layout_boxed">
-        <xpath expr="//div[contains(@class, 'footer') and contains(@class, 'o_boxed_footer')]" position="attributes">
+        <!-- Buscamos el div que lleva t-attf-class="footer o_boxed_footer ..." -->
+        <xpath expr="//div[contains(@t-attf-class, 'footer') and contains(@t-attf-class, 'o_boxed_footer')]" position="attributes">
             <attribute name="style">font-size: 9px !important;</attribute>
         </xpath>
     </template>
