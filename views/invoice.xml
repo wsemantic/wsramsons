@@ -16,8 +16,7 @@
             <attribute name="style">font-size: 11px !important;</attribute>            
         </xpath>
             <xpath expr="//td[@name='td_taxes']" position="attributes">
-                <attribute name="class">text-end</attribute>
-                <attribute name="style">width: 50px; max-width: 50px; text-align: right;</attribute>
+                <attribute name="style">width: 50px !important; max-width: 50px !important; text-align: right !important;</attribute>
             </xpath>
         <xpath expr="//td[@name='td_taxes']/span" position="replace">
             <span t-esc="', '.join([str(tax.amount) + '%' for tax in line.tax_ids])"/>
