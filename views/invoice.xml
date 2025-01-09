@@ -15,6 +15,9 @@
 		<xpath expr="//table[@name='invoice_line_table']/tbody" position="attributes">            
             <attribute name="style">font-size: 11px !important;</attribute>            
         </xpath>
+        <xpath expr="//td[@name='td_taxes']/span" position="replace">
+            <span t-esc="', '.join([str(tax.amount) + '%' for tax in line.tax_ids])"/>
+        </xpath>		
 	</template>
     <template id="inherit_external_layout_boxed" inherit_id="web.external_layout_boxed">
         <!-- Buscamos el div que lleva t-attf-class="footer o_boxed_footer ..." -->
