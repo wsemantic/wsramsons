@@ -3,11 +3,13 @@ from odoo import api, models
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    ''' 
     def _prepare_invoice(self):
         invoice_vals = super()._prepare_invoice()
         if self.note:
             invoice_vals['narration'] = self.note
-        return invoice_vals
+        return invoice_val
+    '''
         
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
