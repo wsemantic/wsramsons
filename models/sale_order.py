@@ -10,6 +10,12 @@ class SaleOrder(models.Model):
             invoice_vals['narration'] = self.note
         return invoice_val
     '''
+    def _prepare_invoice(self):
+        invoice_vals = super(SaleOrder, self)._prepare_invoice()
+        # Evitamos que se copie el contenido del campo 'note' al campo 'narration'
+        if 'narration' in invoice_vals:
+            invoice_vals['narration'] = ''  # O puedes asignarle otro valor si lo deseas
+        return invoice_vals
         
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
