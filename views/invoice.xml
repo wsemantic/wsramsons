@@ -49,7 +49,7 @@
         </xpath>
         
         <xpath expr="//h2" position="attributes">
-            <attribute name="style">font-size: 14px; margin-top: 5px;</attribute>
+            <attribute name="style">font-size: 18px; margin-top: 5px;</attribute>
         </xpath>
 		
 	</template>
