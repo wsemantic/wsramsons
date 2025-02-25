@@ -32,6 +32,8 @@
 			</p>
 		</xpath>	
 
+		<xpath expr="//td[@class='text-end']/span[@t-field='line.product_uom_id']" position="replace"/>
+		
        <!-- Añadir el código EAN (default_code) a las líneas de factura -->
         <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[@name='th_description']" position="after">
             <th name="th_barcode" class="text-start"><span>EAN</span></th>
