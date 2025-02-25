@@ -63,12 +63,15 @@ class AccountMove(models.Model):
             _logger.error('WSEM: Error al convertir el PDF a base64: %s', e)
             return False
 
+        formatted_name = move.name.replace('/', '_') if move.name else f"Invoice_{invoice_id}"
+        file_name = f"Invoice_{formatted_name}.pdf"
+        
         # **Buscar un Attachment Existente**
         attachment = self.env['ir.attachment'].search([
             ('res_model', '=', 'account.move'),
             ('res_id', '=', invoice_id),
             ('mimetype', '=', 'application/pdf'),
-            ('name', '=', f"Invoice_{move.name}.pdf")
+            ('name', '=', file_name)
         ], limit=1)
 
         if attachment:
@@ -82,7 +85,7 @@ class AccountMove(models.Model):
             _logger.info('WSEM: Creando nuevo attachment para la factura ID=%s', invoice_id)
             try:
                 self.env['ir.attachment'].create({
-                    'name': f"{move.name}.pdf",
+                    'name': file_name,
                     'type': 'binary',
                     'datas': pdf_base64,
                     'res_model': 'account.move',

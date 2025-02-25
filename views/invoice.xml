@@ -34,7 +34,7 @@
 
        <!-- Añadir el código EAN (default_code) a las líneas de factura -->
         <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[@name='th_description']" position="after">
-            <th name="th_default_code" class="text-start"><span>Código EAN</span></th>
+            <th name="th_default_code" class="text-start"><span>EAN</span></th>
         </xpath>
         
         <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[@name='account_invoice_line_accountable']/td[@name='account_invoice_line_name']" position="after">
@@ -49,7 +49,7 @@
         </xpath>
         
         <xpath expr="//h2" position="attributes">
-            <attribute name="style">font-size: 18px; margin-top: 5px;</attribute>
+            <attribute name="style">font-size: 18px; margin-top: 0px;</attribute>
         </xpath>
 		
 	</template>
