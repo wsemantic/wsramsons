@@ -20,7 +20,38 @@
             </xpath>
         <xpath expr="//td[@name='td_taxes']/span" position="replace">
             <span t-esc="', '.join([str(tax.amount) + '%' for tax in line.tax_ids])"/>
-        </xpath>		
+        </xpath>
+		<xpath expr="//p[@name='note']" position="replace">
+			<!-- Variable para verificar si todos los impuestos son 0% -->
+			<t t-set="any_tax_zero" t-value="any(not line.tax_ids or all(tax.amount == 0 for tax in line.tax_ids) for line in o.invoice_line_ids)"/>
+			<!-- Variable para verificar si la nota indica "Inversión del Sujeto Pasivo" -->
+			<t t-set="is_inversion_note" t-value="'inversión del sujeto pasivo' in (o.fiscal_position_id.note or '').lower()"/>
+			<!-- Condición para imprimir la nota -->
+			<p t-if="not is_html_empty(o.fiscal_position_id.note) and not (is_inversion_note and not any_tax_zero)" name="note">
+				<span t-field="o.fiscal_position_id.note"/>
+			</p>
+		</xpath>	
+
+       <!-- Añadir el código EAN (default_code) a las líneas de factura -->
+        <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[@name='th_description']" position="after">
+            <th name="th_default_code" class="text-start"><span>Código EAN</span></th>
+        </xpath>
+        
+        <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[@name='account_invoice_line_accountable']/td[@name='account_invoice_line_name']" position="after">
+            <td name="account_invoice_line_default_code" class="text-start">
+                <span t-field="line.product_id.default_code"/>
+            </td>
+        </xpath>
+        
+        <!-- Modificar el título de la factura para subirlo y reducir el tamaño -->
+        <xpath expr="//div[@class='mt-5']" position="attributes">
+            <attribute name="class">mt-2</attribute>
+        </xpath>
+        
+        <xpath expr="//h2" position="attributes">
+            <attribute name="style">font-size: 14px; margin-top: 5px;</attribute>
+        </xpath>
+		
 	</template>
     <template id="inherit_external_layout_boxed" inherit_id="web.external_layout_boxed">
         <!-- Buscamos el div que lleva t-attf-class="footer o_boxed_footer ..." -->
