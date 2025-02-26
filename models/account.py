@@ -64,7 +64,7 @@ class AccountMove(models.Model):
             return False
 
         formatted_name = move.name.replace('/', '_') if move.name else f"Invoice_{invoice_id}"
-        file_name = f"Invoice_{formatted_name}.pdf"
+        file_name = f"{formatted_name}.pdf"
         
         # **Buscar un Attachment Existente**
         attachment = self.env['ir.attachment'].search([
