@@ -72,7 +72,7 @@
         <xpath expr="//tree/field[@name='ref']" position="after">
           <field name="partner_credit_policy" string="Credit Policy"/>
           <field name="partner_ref" string="Partner Ref"/>
-          <field name="user_partner_ref" string="User Partner Ref"/>
+          <field name="commercial_ref" string="Comercial Ref"/>
         </xpath>
       </field>
     </record>
