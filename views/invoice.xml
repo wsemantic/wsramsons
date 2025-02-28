@@ -62,20 +62,20 @@
         </xpath>
     </template>
 	
-    <!-- Hereda la vista tree de facturas -->
+    <!-- Hereda la vista tree de facturas 
     <record id="view_invoice_tree_inherit_related_fields" model="ir.ui.view">
       <field name="name">account.move.tree.inherit.related.fields</field>
       <field name="model">account.move</field>
       <field name="inherit_id" ref="account.view_invoice_tree"/>
       <field name="arch" type="xml">
-        <!-- Insertamos después del campo "ref" -->
+        
         <xpath expr="//tree/field[@name='ref']" position="after">
           <field name="partner_credit_policy" string="Credit Policy"/>
           <field name="partner_ref" string="Partner Ref"/>
           <field name="user_partner_ref" string="User Partner Ref"/>
         </xpath>
       </field>
-    </record>
+    </record>-->
 
 </odoo>
 
