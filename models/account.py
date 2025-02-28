@@ -6,8 +6,8 @@ _logger = logging.getLogger(__name__)
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
-    '''
-    partner_credit_policy = fields.Selection(
+    
+    partner_credit_policy = fields.Char(
         related="partner_id.credit_policy",
         store=True,
         string="Credit Policy"
@@ -22,7 +22,6 @@ class AccountMove(models.Model):
         store=True,
         string="User Partner Ref"
     )
-    '''
     
     @api.model
     def get_invoice_pdf(self, invoice_id):
