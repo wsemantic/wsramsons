@@ -70,9 +70,9 @@
       <field name="arch" type="xml">
         <!-- Insertamos después del campo "ref" -->
         <xpath expr="//tree/field[@name='ref']" position="after">
-          <field name="partner_credit_policy" string="Credit Policy"/>
-          <field name="partner_ref" string="Partner Ref"/>
-          <field name="commercial_ref" string="Comercial Ref"/>
+          <field name="partner_credit_policy" string="Poliza Cred"/>
+          <field name="partner_ref" string="Codigo Cli"/>
+          <field name="commercial_ref" string="Codigo Comerc"/>
         </xpath>
       </field>
     </record>
