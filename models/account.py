@@ -1,5 +1,5 @@
 import logging
-from odoo import models, api
+from odoo import models, api, fields
 import base64
 
 _logger = logging.getLogger(__name__)
