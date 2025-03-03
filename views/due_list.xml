@@ -7,6 +7,9 @@
 		<field name="arch" type="xml">
 			<xpath expr="//field[@name='move_id']" position="after">
 				<field name="invoice_user_id"/>
+				<field name="move_id.partner_credit_policy" string="Poliza Cred"/>
+				<field name="move_id.partner_ref" string="Codigo Cli"/>
+				<field name="move_id.commercial_ref" string="Codigo Comerc"/>				
 			</xpath>
 		</field>
 	</record>
