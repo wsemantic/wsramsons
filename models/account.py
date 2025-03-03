@@ -18,7 +18,7 @@ class AccountMove(models.Model):
         string="Partner Ref"
     )
     commercial_ref = fields.Char(
-        related="user_id.partner_id.ref",
+        related="partner_id.user_id.partner_id.ref",
         store=True,
         string="User Partner Ref"
     )
@@ -132,7 +132,7 @@ class AccountMoveLine(models.Model):
         string="Partner Ref"
     )
     commercial_ref = fields.Char(
-        related="invoice_user_id.partner_id.ref",
+        related="partner_id.user_id.partner_id.ref",
         store=True,
         string="User Partner Ref"
     )
