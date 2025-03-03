@@ -121,7 +121,7 @@ class AccountMove(models.Model):
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
-        partner_credit_policy = fields.Char(
+    partner_credit_policy = fields.Char(
         related="partner_id.credit_policy",
         store=True,
         string="Credit Policy"
