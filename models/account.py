@@ -118,3 +118,21 @@ class AccountMove(models.Model):
 
         _logger.info('WSEM: Finalizando get_invoice_pdf para invoice_id=%s', invoice_id)
         return pdf_base64
+
+class AccountMoveLine(models.Model):
+    _inherit = "account.move.line"
+        partner_credit_policy = fields.Char(
+        related="partner_id.credit_policy",
+        store=True,
+        string="Credit Policy"
+    )
+    partner_ref = fields.Char(
+        related="partner_id.ref",
+        store=True,
+        string="Partner Ref"
+    )
+    commercial_ref = fields.Char(
+        related="invoice_user_id.partner_id.ref",
+        store=True,
+        string="User Partner Ref"
+    )
