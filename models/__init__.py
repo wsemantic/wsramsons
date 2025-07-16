@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import sale_order, account, payment, partner, product
+from . import sale_order, account, payment, partner, product, product_category
