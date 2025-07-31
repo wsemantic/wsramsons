@@ -3,7 +3,7 @@
     <!-- Regla de registro mejorada --> 
     <record id="wsramsons_regla_acceso_comercial" model="ir.rule">
         <field name="name">[wsramsons] Contactos: Restricción por comercial</field>
-        <field name="model_id" ref="model_res_partner"/>
+        <field name="model_id" ref="base.model_res_partner"/>
         <field name="domain_force">[('user_id', '=', user.id)]</field>
         <field name="groups" eval="[(4, ref('wsramsons.group_comercial'))]"/>
         <field name="perm_read" eval="True"/>
@@ -12,7 +12,6 @@
         <field name="perm_unlink" eval="False"/>
         <field name="global" eval="False"/>
         <!-- Asegurar que se cree el External ID -->
-		<field name="global" eval="True"/>
         <field name="active" eval="True"/>
     </record>
 </odoo>
