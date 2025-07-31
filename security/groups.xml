@@ -9,4 +9,12 @@
         <!-- Añade esta línea para mejor visibilidad -->
         <field name="comment">Usuarios con este grupo solo ven contactos de su asignación comercial</field>
     </record>
+	<record id="group_all_partner" model="res.groups">
+        <field name="name">Ver todos los contactos</field>
+        <!-- Asegúrate que esta categoría exista o usa una estándar -->
+        <field name="category_id" ref="base.module_category_sales_sales"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <!-- Añade esta línea para mejor visibilidad -->
+        <field name="comment">Usuarios con este grupo ven todos los contactos</field>
+    </record>
 </odoo>
