@@ -10,21 +10,18 @@
         <field name="comment">Usuarios con este grupo solo ven contactos de su asignación comercial</field>
     </record>
 
-    <!-- Regla de registro mejorada -->
+    <!-- Regla de registro mejorada --> 
     <record id="wsramsons_regla_acceso_comercial" model="ir.rule">
         <field name="name">[wsramsons] Contactos: Restricción por comercial</field>
         <field name="model_id" ref="model_res_partner"/>
-        <field name="domain_force">
-            [('user_id', '=', user.id)]
-        </field>
-        <!-- Referencia correcta al grupo usando el módulo como prefijo -->
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
         <field name="groups" eval="[(4, ref('wsramsons.group_comercial'))]"/>
-        <!-- Permisos explícitos -->
-        <field name="perm_read" eval="1"/>
-        <field name="perm_write" eval="1"/>
-        <field name="perm_create" eval="1"/>
-        <field name="perm_unlink" eval="0"/>
-        <!-- Importante: hacerla no global -->
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
         <field name="global" eval="False"/>
+        <!-- Asegurar que se cree el External ID -->
+        <field name="active" eval="True"/>
     </record>
 </odoo>
