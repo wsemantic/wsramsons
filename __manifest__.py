@@ -24,7 +24,9 @@
 
     # always loaded
     'data': [
+        'security/groups.xml',
         'security/security_rules.xml',
+        
         'views/partner.xml',
         'views/invoice.xml',
         'views/due_list.xml',

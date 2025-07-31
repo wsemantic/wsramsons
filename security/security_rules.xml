@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Definición del grupo comercial -->
-    <record id="group_comercial" model="res.groups">
-        <field name="name">Restricción por Comercial</field>
-        <!-- Asegúrate que esta categoría exista o usa una estándar -->
-        <field name="category_id" ref="base.module_category_sales_sales"/>
-        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
-        <!-- Añade esta línea para mejor visibilidad -->
-        <field name="comment">Usuarios con este grupo solo ven contactos de su asignación comercial</field>
-    </record>
-
     <!-- Regla de registro mejorada --> 
     <record id="wsramsons_regla_acceso_comercial" model="ir.rule">
         <field name="name">[wsramsons] Contactos: Restricción por comercial</field>
         <field name="model_id" ref="model_res_partner"/>
         <field name="domain_force">[('user_id', '=', user.id)]</field>
-        <field name="groups" eval="[(4, ref('group_comercial'))]"/>
+        <field name="groups" eval="[(4, ref('wsramsons.group_comercial'))]"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_create" eval="True"/>
