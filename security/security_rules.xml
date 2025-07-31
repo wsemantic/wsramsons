@@ -12,6 +12,7 @@
         <field name="perm_unlink" eval="False"/>
         <field name="global" eval="False"/>
         <!-- Asegurar que se cree el External ID -->
+		<field name="global" eval="True"/>
         <field name="active" eval="True"/>
     </record>
 </odoo>
