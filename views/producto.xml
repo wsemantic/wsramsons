@@ -1,0 +1,18 @@
+<odoo>
+  <data>
+    <record id="view_product_template_hide_cost" model="ir.ui.view">
+      <field name="name">product.template.form.hide.cost</field>
+      <field name="model">product.template</field>
+      <!-- heredamos la vista solo-formulario -->
+      <field name="inherit_id" ref="product.product_template_only_form_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='standard_price']" position="attributes">
+          <!-- Solo accesible para contables o gestores de producto -->
+          <attribute name="groups">
+            wsramsons.group_all_partner
+          </attribute>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>
