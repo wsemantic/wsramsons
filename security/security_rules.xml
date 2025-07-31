@@ -15,7 +15,7 @@
         <field name="name">[wsramsons] Contactos: Restricción por comercial</field>
         <field name="model_id" ref="model_res_partner"/>
         <field name="domain_force">
-            ['|', ('user_id', '=', user.id), ('user_id', '=', False)]
+            [('user_id', '=', user.id)]
         </field>
         <!-- Referencia correcta al grupo usando el módulo como prefijo -->
         <field name="groups" eval="[(4, ref('wsramsons.group_comercial'))]"/>
