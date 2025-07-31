@@ -26,7 +26,7 @@
     'data': [
         'security/groups.xml',
         'security/security_rules.xml',
-        'views/products.xml',
+        'views/product.xml',
         'views/partner.xml',
         'views/invoice.xml',
         'views/due_list.xml',
