@@ -97,7 +97,7 @@
 		</field>
 
 		<!-- Solo aplicable al grupo “restricción por comercial” -->
-		<field name="groups_id" eval="[(4, ref('wsramsons.group_restriccion_comercial'))]"/>
+		<field name="groups_id" eval="[(4, ref('wsramsons.group_comercial'))]"/>
 	</record>
 
 
