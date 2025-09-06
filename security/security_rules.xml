@@ -15,6 +15,20 @@
         <field name="active" eval="True"/>
     </record>
 
+    <!-- Acceso a la información del propio usuario -->
+    <record id="wsramsons_user_self_rule" model="ir.rule">
+        <field name="name">[wsramsons] Usuarios: Solo su propio registro</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="domain_force">[('id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('wsramsons.group_comercial'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="global" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+	
     <!-- Facturas visibles solo para el comercial asignado al cliente -->
     <record id="wsramsons_invoice_salesman_rule" model="ir.rule">
         <field name="name">[wsramsons] Facturas: Restricción por comercial</field>
