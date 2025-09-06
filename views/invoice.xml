@@ -76,6 +76,30 @@
         </xpath>
       </field>
     </record>
+	
+	<!--grupo comercial siempre activo filtro mis facturas-->
+	<record id="view_move_search_restriccion" model="ir.ui.view">
+		<field name="name">account.move.search.restriccion</field>
+		<field name="model">account.move</field>
+		<field name="inherit_id" ref="account.view_move_tree_filter"/>
+		<field name="arch" type="xml">
+
+			<!-- Activa el filtro "Mis facturas" al abrir -->
+			<xpath expr="//search" position="attributes">
+				<attribute name="context"
+				   >{'search_default_my_invoices': 1}</attribute>
+			</xpath>
+
+			<!-- Oculta todos los filtros excepto “Mis facturas” -->
+			<xpath expr="//filter[@name!='my_invoices']" position="attributes">
+				<attribute name="groups">base.group_no_one</attribute>
+			</xpath>
+		</field>
+
+		<!-- Solo aplicable al grupo “restricción por comercial” -->
+		<field name="groups_id" eval="[(4, ref('tu_modulo.group_restriccion_comercial'))]"/>
+	</record>
+
 
 </odoo>
 
