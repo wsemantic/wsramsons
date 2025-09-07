@@ -77,76 +77,22 @@
       </field>
     </record>
 	
-<!-- Vista de búsqueda completamente nueva para el grupo comercial -->
-        <record id="view_account_invoice_filter_comercial_simple" model="ir.ui.view">
-            <field name="name">Facturas Comercial Simple</field>
-            <field name="model">account.move</field>
-            <field name="arch" type="xml">
-                <search string="Search Invoice">
-                    <!-- Campos básicos de búsqueda -->
-                    <field name="name" string="Invoice" 
-                           filter_domain="[('name', 'ilike', self)]"/>
-                    <field name="partner_id" operator="child_of"/>
-                    <field name="date" string="Period"/>
-                    
-                    <!-- Solo el filtro "Mis facturas" visible y por defecto -->
-                    <filter domain="[('invoice_user_id', '=', uid)]" 
-                            name="myinvoices" 
-                            help="My Invoices" 
-                            default="1"
-                            string="Mis Facturas"/>
-                    
-                    <separator/>
-                    
-                    <!-- Filtros básicos de estado -->
-                    <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
-                    <filter name="posted" string="Posted" domain="[('state', '=', 'posted')]"/>
-                    
-                    <separator/>
-                    
-                    <!-- Filtros básicos de fecha -->
-                    <filter name="invoice_date" string="Invoice Date" date="invoice_date"/>
-                    <filter name="due_date" string="Due Date" date="invoice_date_due"/>
-                    
-                    <!-- Agrupaciones básicas -->
-                    <group expand="0" string="Group By">
-                        <filter string="Partner" name="groupby_partner" 
-                                domain="[]" context="{'group_by': 'partner_id'}"/>
-                        <filter string="Status" name="groupby_status" 
-                                context="{'group_by': 'state'}"/>
-                        <filter string="Invoice Date" name="groupby_invoicedate" 
-                                context="{'group_by': 'invoice_date'}"/>
-                        <filter string="Due Date" name="groupby_duedate" 
-                                context="{'group_by': 'invoice_date_due'}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
-
-        <!-- Crear acción específica para el grupo comercial -->
+        <!-- Acción específica para el grupo comercial con dominio restrictivo -->
         <record id="action_move_out_invoice_commercial" model="ir.actions.act_window">
             <field name="name">Mis Facturas</field>
             <field name="res_model">account.move</field>
             <field name="view_mode">tree,kanban,form,activity</field>
-            <field name="domain">[('move_type', 'in', ('out_invoice', 'out_refund'))]</field>
+            <field name="domain">[('move_type', 'in', ('out_invoice', 'out_refund')), ('invoice_user_id', '=', uid)]</field>
             <field name="context">{
                 'default_move_type': 'out_invoice',
                 'move_type': 'out_invoice',
-                'journal_type': 'sale',
-                'search_default_myinvoices': 1,
+                'journal_type': 'sale'
             }</field>
             <field name="view_id" ref="account.view_move_tree"/>
-            <field name="search_view_id" ref="view_account_invoice_filter_comercial_simple"/>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Create a customer invoice
-                </p><p>
-                    Create invoices, register payments and keep track of the discussions with your customers.
-                </p>
-            </field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
         </record>
 
-        <!-- Crear menú específico para el grupo comercial -->
+        <!-- Menú específico para el grupo comercial -->
         <menuitem id="menu_action_move_out_invoice_commercial"
                   name="Mis Facturas"
                   parent="account.menu_finance_receivables"
