@@ -78,34 +78,42 @@
     </record>
 	
         <!--grupo comercial siempre activo filtro mis facturas-->
-        <record id="view_move_search_restriccion" model="ir.ui.view">
+		<record id="view_move_search_restriccion" model="ir.ui.view">
             <field name="name">account.move.search.restriccion</field>
             <field name="model">account.move</field>
             <field name="inherit_id" ref="account.view_account_invoice_filter"/>
-            <field name="groups_id" eval="[(4, ref('wsramsons.group_comercial'))]"/>
             <field name="arch" type="xml">
                 
-                <!-- Hacer que "Mis facturas" sea el filtro por defecto -->
+                <!-- Hacer que "Mis facturas" sea el filtro por defecto solo para el grupo comercial -->
                 <filter name="myinvoices" position="attributes">
-                    <attribute name="default">1</attribute>
+                    <attribute name="default" groups="wsramsons.group_comercial">1</attribute>
                 </filter>
                 
-                <!-- Ocultar otros filtros que podrían mostrar datos de otros usuarios -->
+                <!-- Ocultar otros filtros para el grupo comercial -->
                 <filter name="draft" position="attributes">
-                    <attribute name="invisible">1</attribute>
+                    <attribute name="groups">!wsramsons.group_comercial</attribute>
                 </filter>
                 <filter name="posted" position="attributes">
-                    <attribute name="invisible">1</attribute>
+                    <attribute name="groups">!wsramsons.group_comercial</attribute>
                 </filter>
                 <filter name="open" position="attributes">
-                    <attribute name="invisible">1</attribute>
+                    <attribute name="groups">!wsramsons.group_comercial</attribute>
                 </filter>
                 <filter name="closed" position="attributes">
-                    <attribute name="invisible">1</attribute>
+                    <attribute name="groups">!wsramsons.group_comercial</attribute>
+                </filter>
+                
+                <!-- Ocultar agrupaciones que podrían mostrar datos de otros -->
+                <filter name="salesperson" position="attributes">
+                    <attribute name="groups">!wsramsons.group_comercial</attribute>
+                </filter>
+                <filter name="groupy_by_partner" position="attributes">
+                    <attribute name="groups">!wsramsons.group_comercial</attribute>
                 </filter>
                 
             </field>
         </record>
+
 
 
 </odoo>
