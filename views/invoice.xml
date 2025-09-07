@@ -99,5 +99,6 @@
                 <field name="groups_id" eval="[(4, ref('wsramsons.group_comercial'))]"/>
         </record>
 
+
 </odoo>
 
