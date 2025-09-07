@@ -78,22 +78,34 @@
     </record>
 	
         <!--grupo comercial siempre activo filtro mis facturas-->
-	<record id="view_move_search_restriccion" model="ir.ui.view">
-		<field name="name">account.move.search.restriccion</field>
-		<field name="model">account.move</field>
-		<field name="inherit_id" ref="account.view_move_search"/>
-		<field name="arch" type="xml">
-			<!-- Activa el filtro "Mis facturas" al abrir solo para el grupo comercial -->
-			<xpath expr="//search" position="attributes" groups="wsramsons.group_comercial">
-				<attribute name="context">{'search_default_my_invoices': 1}</attribute>
-			</xpath>
-
-			<!-- Oculta todos los filtros excepto "Mis facturas" para el grupo comercial -->
-			<xpath expr="//filter[@name!='my_invoices']" position="attributes" groups="wsramsons.group_comercial">
-				<attribute name="groups">base.group_no_one</attribute>
-			</xpath>
-		</field>
-	</record>
+        <record id="view_move_search_restriccion" model="ir.ui.view">
+            <field name="name">account.move.search.restriccion</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="groups_id" eval="[(4, ref('wsramsons.group_comercial'))]"/>
+            <field name="arch" type="xml">
+                
+                <!-- Hacer que "Mis facturas" sea el filtro por defecto -->
+                <filter name="myinvoices" position="attributes">
+                    <attribute name="default">1</attribute>
+                </filter>
+                
+                <!-- Ocultar otros filtros que podrían mostrar datos de otros usuarios -->
+                <filter name="draft" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+                <filter name="posted" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+                <filter name="open" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+                <filter name="closed" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+                
+            </field>
+        </record>
 
 
 </odoo>
