@@ -42,9 +42,7 @@
 			<![CDATA[
 				['|',
 				  ('id','=',user.partner_id.id),
-				  '|',
-					('customer_rank','=',0),
-					'&', ('customer_rank','>',0), ('user_id','=',user.id)
+				'&', ('customer_rank','>',0), ('user_id','=',user.id)
 				]
 			]]>
 		</field>
