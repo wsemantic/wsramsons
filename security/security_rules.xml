@@ -41,8 +41,8 @@
 				  '|',
 					('id','=',user.company_id.partner_id.id),          
 					'|',
-					  '&', ('customer_rank','>',0), ('user_id','=',user.id),  
-					  '&', ('parent_id.customer_rank','>',0), ('parent_id.user_id','=',user.id) 
+					  ('user_id','=',user.id),
+					  ('parent_id.user_id','=',user.id) 
 				]
 			]]>
 		</field>
