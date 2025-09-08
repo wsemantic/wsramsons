@@ -34,4 +34,20 @@
 		]]></field>
 	</record>
 
+	  <!-- Ocultar el chatter solo a comerciales -->
+	  <record id="view_partner_form_hide_chatter_for_sales" model="ir.ui.view">
+		<field name="name">res.partner.form.hide.chatter.for.sales</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form"/>
+		<field name="arch" type="xml">
+		  <!-- Chatter -->
+		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
+			<attribute name="groups">wsramsons.group_all_partner</attribute>
+		  </xpath>
+		  <!-- Botonera de smart buttons (evita lecturas indirectas de partners ajenos) -->
+		  <xpath expr="//div[@name='button_box']" position="attributes">
+			<attribute name="groups">wsramsons.group_all_partner</attribute>
+		  </xpath>
+		</field>
+	  </record>
 </odoo>
