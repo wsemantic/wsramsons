@@ -37,12 +37,12 @@
 		<field name="domain_force">
 			<![CDATA[
 				['|',
-				  ('id','=',user.partner_id.id),                       /* su propio partner */
+				  ('id','=',user.partner_id.id),                       
 				  '|',
-					('id','=',user.company_id.partner_id.id),          /* partner de su compañía */
+					('id','=',user.company_id.partner_id.id),          
 					'|',
-					  '&', ('customer_rank','>',0), ('user_id','=',user.id),  /* clientes asignados a mí */
-					  '&', ('parent_id.customer_rank','>',0), ('parent_id.user_id','=',user.id)  /* hijos de mis clientes */
+					  '&', ('customer_rank','>',0), ('user_id','=',user.id),  
+					  '&', ('parent_id.customer_rank','>',0), ('parent_id.user_id','=',user.id) 
 				]
 			]]>
 		</field>
