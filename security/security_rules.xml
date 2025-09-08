@@ -17,21 +17,21 @@
 	
 
 	<record id="wsramsons_regla_acceso_comercial" model="ir.rule">
-		<field name="name">[wsramsons] Contactos: mis clientes y sus contactos</field>
+		<field name="name">[wsramsons] Contactos: mis asignados, sus hijos y sus padres</field>
 		<field name="model_id" ref="base.model_res_partner"/>
 		<field name="groups" eval="[(4, ref('wsramsons.group_comercial'))]"/>
-		<field name="domain_force">
-			<![CDATA[
-				['|',
-				  ('id','=',user.partner_id.id),                       
-				  '|',
-					('id','=',user.company_id.partner_id.id),          
-					'|',
-					  ('user_id','=',user.id),
-					  ('parent_id.user_id','=',user.id) 
-				]
-			]]>
-		</field>
+		<field name="domain_force"><![CDATA[
+		['|',
+		  ('id','=',user.partner_id.id),
+		  '|',
+			('id','=',user.company_id.partner_id.id),
+			'|',
+			  ('user_id','=',user.id),
+			  '|',
+				('parent_id.user_id','=',user.id),
+				('child_ids.user_id','=',user.id)
+		]
+		]]></field>
 	</record>
 
 </odoo>
