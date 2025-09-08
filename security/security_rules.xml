@@ -29,30 +29,23 @@
         <field name="active" eval="True"/>
     </record>
 	
-	
+
 	<record id="wsramsons_regla_acceso_comercial" model="ir.rule">
-		<field name="name">[wsramsons] Contactos: Clientes propios; resto libres</field>
+		<field name="name">[wsramsons] Contactos: mis clientes y sus contactos</field>
 		<field name="model_id" ref="base.model_res_partner"/>
-		<!-- Dominio:
-			 - Siempre puede ver su propio partner (id = user.partner_id.id)
-			 - CUALQUIER partner que NO sea cliente (customer_rank = 0) es visible (no restringimos)
-			 - Si ES cliente (customer_rank > 0), entonces debe cumplir user_id = user.id
-		-->
+		<field name="groups" eval="[(4, ref('wsramsons.group_comercial'))]"/>
 		<field name="domain_force">
 			<![CDATA[
 				['|',
-				  ('id','=',user.partner_id.id),
-				'&', ('customer_rank','>',0), ('user_id','=',user.id)
+				  ('id','=',user.partner_id.id),                       /* su propio partner */
+				  '|',
+					('id','=',user.company_id.partner_id.id),          /* partner de su compañía */
+					'|',
+					  '&', ('customer_rank','>',0), ('user_id','=',user.id),  /* clientes asignados a mí */
+					  '&', ('parent_id.customer_rank','>',0), ('parent_id.user_id','=',user.id)  /* hijos de mis clientes */
 				]
 			]]>
 		</field>
-		<field name="groups" eval="[(4, ref('wsramsons.group_comercial'))]"/>
-		<field name="perm_read" eval="True"/>
-		<field name="perm_write" eval="True"/>
-		<field name="perm_create" eval="True"/>
-		<field name="perm_unlink" eval="False"/>
-		<field name="global" eval="False"/>
-		<field name="active" eval="True"/>
 	</record>
 
 
