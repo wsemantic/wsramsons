@@ -40,10 +40,10 @@
 		<field name="model">res.partner</field>
 		<field name="inherit_id" ref="base.view_partner_form"/>
 		<field name="arch" type="xml">
-		  <!-- Chatter -->
+		  <!-- Chatter 
 		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>
+		  </xpath>-->
 		  <!-- Botonera de smart buttons (evita lecturas indirectas de partners ajenos) -->
 		  <xpath expr="//div[@name='button_box']" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
@@ -57,10 +57,10 @@
 		<field name="model">sale.order</field>
 		<field name="inherit_id" ref="sale.view_order_form"/>
 		<field name="arch" type="xml">
-		  <!-- Ocultar chatter -->
+		  <!-- Ocultar chatter 
 		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>
+		  </xpath>-->
 		  <!-- Ocultar smart buttons -->
 		  <xpath expr="//div[@name='button_box']" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
@@ -74,10 +74,10 @@
 		<field name="model">account.move</field>
 		<field name="inherit_id" ref="account.view_move_form"/>
 		<field name="arch" type="xml">
-		  <!-- Ocultar chatter -->
+		  <!-- Ocultar chatter 
 		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>
+		  </xpath>-->
 		  <!-- Ocultar smart buttons -->
 		  <xpath expr="//div[@name='button_box']" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
