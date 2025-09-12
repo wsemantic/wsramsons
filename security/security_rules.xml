@@ -43,11 +43,11 @@
 		  <!-- Chatter 
 		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>-->
-		  <!-- Botonera de smart buttons (evita lecturas indirectas de partners ajenos) -->
+		  </xpath>
+		  
 		  <xpath expr="//div[@name='button_box']" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>
+		  </xpath>-->
 		</field>
 	  </record>
 	  
@@ -60,11 +60,11 @@
 		  <!-- Ocultar chatter 
 		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>-->
-		  <!-- Ocultar smart buttons -->
+		  </xpath>
+
 		  <xpath expr="//div[@name='button_box']" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>
+		  </xpath>-->
 		</field>
 	  </record>
 
@@ -77,11 +77,10 @@
 		  <!-- Ocultar chatter 
 		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>-->
-		  <!-- Ocultar smart buttons -->
+		  </xpath>
 		  <xpath expr="//div[@name='button_box']" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>
+		  </xpath>-->
 		</field>
 	  </record>
 </odoo>
