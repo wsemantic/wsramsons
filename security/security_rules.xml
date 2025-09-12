@@ -39,16 +39,16 @@
 		<field name="name">res.partner.form.hide.chatter.for.sales</field>
 		<field name="model">res.partner</field>
 		<field name="inherit_id" ref="base.view_partner_form"/>
-		<field name="arch" type="xml">
-		  <!-- Chatter 
+		 <!-- <field name="arch" type="xml">
+		 Chatter 
 		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
 		  </xpath>
 		  
 		  <xpath expr="//div[@name='button_box']" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>-->
-		</field>
+		  </xpath>
+		</field>-->
 	  </record>
 	  
 	  <!-- ==== Pedidos de venta (sale.order) ==== -->
@@ -56,16 +56,16 @@
 		<field name="name">sale.order.form.hide.chatter.for.sales</field>
 		<field name="model">sale.order</field>
 		<field name="inherit_id" ref="sale.view_order_form"/>
-		<field name="arch" type="xml">
-		  <!-- Ocultar chatter 
+		<!--<field name="arch" type="xml">
+		   Ocultar chatter 
 		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
 		  </xpath>
 
 		  <xpath expr="//div[@name='button_box']" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>-->
-		</field>
+		  </xpath>
+		</field>-->
 	  </record>
 
 	  <!-- ==== Facturas (account.move) ==== -->
@@ -73,14 +73,14 @@
 		<field name="name">account.move.form.hide.chatter.for.sales</field>
 		<field name="model">account.move</field>
 		<field name="inherit_id" ref="account.view_move_form"/>
-		<field name="arch" type="xml">
-		  <!-- Ocultar chatter 
+		<!-- <field name="arch" type="xml">
+		  Ocultar chatter 
 		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
 		  </xpath>
 		  <xpath expr="//div[@name='button_box']" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>-->
-		</field>
+		  </xpath>
+		</field>-->
 	  </record>
 </odoo>
