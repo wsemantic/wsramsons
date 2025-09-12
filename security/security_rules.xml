@@ -34,53 +34,54 @@
 		]]></field>
 	</record>
 
-	  <!-- Ocultar el chatter solo a comerciales -->
+	  <!-- Ocultar el chatter solo a comerciales 
 	  <record id="view_partner_form_hide_chatter_for_sales" model="ir.ui.view">
 		<field name="name">res.partner.form.hide.chatter.for.sales</field>
 		<field name="model">res.partner</field>
 		<field name="inherit_id" ref="base.view_partner_form"/>
-		 <!-- <field name="arch" type="xml">
-		 Chatter 
+		<field name="arch" type="xml">
+		  Chatter 
 		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
 		  </xpath>
-		  
+		  Botonera de smart buttons (evita lecturas indirectas de partners ajenos)
 		  <xpath expr="//div[@name='button_box']" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
 		  </xpath>
-		</field>-->
+		</field>
 	  </record>
 	  
-	  <!-- ==== Pedidos de venta (sale.order) ==== -->
+	  Pedidos de venta (sale.order) 
 	  <record id="view_sale_order_hide_chatter_for_sales" model="ir.ui.view">
 		<field name="name">sale.order.form.hide.chatter.for.sales</field>
 		<field name="model">sale.order</field>
 		<field name="inherit_id" ref="sale.view_order_form"/>
-		<!--<field name="arch" type="xml">
-		   Ocultar chatter 
-		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
-			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>
-
-		  <xpath expr="//div[@name='button_box']" position="attributes">
-			<attribute name="groups">wsramsons.group_all_partner</attribute>
-		  </xpath>
-		</field>-->
-	  </record>
-
-	  <!-- ==== Facturas (account.move) ==== -->
-	  <record id="view_account_move_hide_chatter_for_sales" model="ir.ui.view">
-		<field name="name">account.move.form.hide.chatter.for.sales</field>
-		<field name="model">account.move</field>
-		<field name="inherit_id" ref="account.view_move_form"/>
-		<!-- <field name="arch" type="xml">
+		<field name="arch" type="xml">
 		  Ocultar chatter 
 		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
 		  </xpath>
+		  Ocultar smart buttons
 		  <xpath expr="//div[@name='button_box']" position="attributes">
 			<attribute name="groups">wsramsons.group_all_partner</attribute>
 		  </xpath>
-		</field>-->
+		</field>
 	  </record>
+
+	  Facturas (account.move)
+	  <record id="view_account_move_hide_chatter_for_sales" model="ir.ui.view">
+		<field name="name">account.move.form.hide.chatter.for.sales</field>
+		<field name="model">account.move</field>
+		<field name="inherit_id" ref="account.view_move_form"/>
+		<field name="arch" type="xml">
+		  Ocultar chatter
+		  <xpath expr="//div[contains(@class,'oe_chatter')]" position="attributes">
+			<attribute name="groups">wsramsons.group_all_partner</attribute>
+		  </xpath>
+		  Ocultar smart buttons 
+		  <xpath expr="//div[@name='button_box']" position="attributes">
+			<attribute name="groups">wsramsons.group_all_partner</attribute>
+		  </xpath>
+		</field>
+	  </record>-->
 </odoo>
