@@ -29,7 +29,7 @@
         <field name="model_id" ref="sale.model_sale_order"/>
         <field name="domain_force">['|', ('partner_id.user_id', '=', user.id), ('partner_id.parent_id.user_id', '=', user.id)]</field>
         <field name="groups" eval="[(4, ref('wsramsons.group_comercial'))]"/>
-		<field name="perm_read" eval="True"/>
+        <field name="perm_read" eval="True"/>
         <field name="perm_write" eval="False"/>
         <field name="perm_create" eval="False"/>
         <field name="perm_unlink" eval="False"/>
