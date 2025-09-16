@@ -3,8 +3,11 @@
 
     <!-- Acceso a la información del propio usuario
 	Requisitos:
-	En regla res.partner.rule.private.employee remover grupo usuarios internos
+	En regla res.partner.rule.private.employee remover grupo usuarios internos y añadir grupo "ver todos los contactos"
 	Entonces todos los usuarios deben pertenecer al grupo all partner o al grupo comercial
+	
+	Los usuarios tienen permisos Contabilidad:Facturacion, es decir que pueden ver Facturas
+	Como las reglas no globales on OR, no podemos limitar eso, entonces en la vista se crea otra accion y menu que puede definir un dominio de filtrado y un grupo
 	Ojo la app de contactos se oculta desde la vista de partner gracias a sobreescribir a que grupos se asocia el menu de contactos
 	-->
     <record id="wsramsons_user_self_rule" model="ir.rule">
@@ -26,6 +29,10 @@
         <field name="model_id" ref="sale.model_sale_order"/>
         <field name="domain_force">['|', ('partner_id.user_id', '=', user.id), ('partner_id.parent_id.user_id', '=', user.id)]</field>
         <field name="groups" eval="[(4, ref('wsramsons.group_comercial'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
     </record>
 
     <record id="wsramsons_account_move_user_rule" model="ir.rule">
@@ -33,6 +40,10 @@
         <field name="model_id" ref="account.model_account_move"/>
         <field name="domain_force">['|', ('partner_id.user_id', '=', user.id), ('partner_id.parent_id.user_id', '=', user.id)]</field>
         <field name="groups" eval="[(4, ref('wsramsons.group_comercial'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>		
     </record>
 
 </odoo>

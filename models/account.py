@@ -26,7 +26,7 @@ class AccountMove(models.Model):
 
     def _is_commercial_user(self):
         return self.env.user.has_group('wsramsons.group_comercial')
-
+      
     def _check_commercial_block(self, message):
         if self._is_commercial_user():
             raise AccessError(message)
