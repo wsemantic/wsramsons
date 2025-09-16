@@ -7,22 +7,6 @@ class SaleOrder(models.Model):
     def _is_commercial_user(self):
         return self.env.user.has_group('wsramsons.group_comercial')
 
-    @staticmethod
-    def _is_allowed_chatter_update(vals):
-        if not vals:
-            return True
-
-        allowed_prefixes = ('message_', 'activity_')
-        allowed_fields = {'message_follower_ids', 'message_ids', 'activity_ids'}
-
-        for field_name in vals.keys():
-            if field_name in allowed_fields:
-                continue
-            if field_name.startswith(allowed_prefixes):
-                continue
-            return False
-        return True
-
     def _check_commercial_block(self, message):
         if self._is_commercial_user():
             raise AccessError(message)
@@ -42,7 +26,7 @@ class SaleOrder(models.Model):
         return invoice_vals
 
     def write(self, vals):
-        if self._is_commercial_user() and not self._is_allowed_chatter_update(vals):
+        if self._is_commercial_user():
             self._check_commercial_block("No tienes permisos para modificar presupuestos.")
         return super().write(vals)
 

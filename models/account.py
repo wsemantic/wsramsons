@@ -26,23 +26,7 @@ class AccountMove(models.Model):
 
     def _is_commercial_user(self):
         return self.env.user.has_group('wsramsons.group_comercial')
-
-    @staticmethod
-    def _is_allowed_chatter_update(vals):
-        if not vals:
-            return True
-
-        allowed_prefixes = ('message_', 'activity_')
-        allowed_fields = {'message_follower_ids', 'message_ids', 'activity_ids'}
-
-        for field_name in vals.keys():
-            if field_name in allowed_fields:
-                continue
-            if field_name.startswith(allowed_prefixes):
-                continue
-            return False
-        return True
-
+      
     def _check_commercial_block(self, message):
         if self._is_commercial_user():
             raise AccessError(message)
@@ -144,7 +128,7 @@ class AccountMove(models.Model):
         return pdf_base64
 
     def write(self, vals):
-        if self._is_commercial_user() and not self._is_allowed_chatter_update(vals):
+        if self._is_commercial_user():
             self._check_commercial_block("No tienes permisos para modificar facturas.")
         return super().write(vals)
 
@@ -166,6 +150,16 @@ class AccountMove(models.Model):
     def action_remove_move_reconcile(self):
         self._check_commercial_block("No tienes permisos para romper conciliaciones.")
         return super().action_remove_move_reconcile()
+
+    def js_assign_outstanding_line(self, line_id):
+        self.ensure_one()
+        self._check_commercial_block("No tienes permisos para conciliar pagos en facturas.")
+        return super().js_assign_outstanding_line(line_id)
+
+    def js_remove_outstanding_partial(self, partial_id):
+        self.ensure_one()
+        self._check_commercial_block("No tienes permisos para romper conciliaciones.")
+        return super().js_remove_outstanding_partial(partial_id)
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
