@@ -1,12 +1,13 @@
 import logging
 from odoo import models, api, fields
+from odoo.exceptions import AccessError
 import base64
 
 _logger = logging.getLogger(__name__)
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
-    
+
     partner_credit_policy = fields.Char(
         related="partner_id.credit_policy",
         store=True,
@@ -22,6 +23,13 @@ class AccountMove(models.Model):
         store=True,
         string="User Partner Ref"
     )
+
+    def _is_commercial_user(self):
+        return self.env.user.has_group('wsramsons.group_comercial')
+
+    def _check_commercial_block(self, message):
+        if self._is_commercial_user():
+            raise AccessError(message)
     
     @api.model
     def get_invoice_pdf(self, invoice_id):
@@ -119,6 +127,40 @@ class AccountMove(models.Model):
         _logger.info('WSEM: Finalizando get_invoice_pdf para invoice_id=%s', invoice_id)
         return pdf_base64
 
+    def write(self, vals):
+        if self._is_commercial_user():
+            self._check_commercial_block("No tienes permisos para modificar facturas.")
+        return super().write(vals)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        if self.env.user.has_group('wsramsons.group_comercial'):
+            raise AccessError("No tienes permisos para crear facturas.")
+        return super().create(vals_list)
+
+    def unlink(self):
+        if self._is_commercial_user():
+            self._check_commercial_block("No tienes permisos para eliminar facturas.")
+        return super().unlink()
+
+    def button_draft(self):
+        self._check_commercial_block("No tienes permisos para reabrir facturas.")
+        return super().button_draft()
+
+    def action_remove_move_reconcile(self):
+        self._check_commercial_block("No tienes permisos para romper conciliaciones.")
+        return super().action_remove_move_reconcile()
+
+    def js_assign_outstanding_line(self, line_id):
+        self.ensure_one()
+        self._check_commercial_block("No tienes permisos para conciliar pagos en facturas.")
+        return super().js_assign_outstanding_line(line_id)
+
+    def js_remove_outstanding_partial(self, partial_id):
+        self.ensure_one()
+        self._check_commercial_block("No tienes permisos para romper conciliaciones.")
+        return super().js_remove_outstanding_partial(partial_id)
+
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
     partner_credit_policy = fields.Char(
@@ -136,3 +178,8 @@ class AccountMoveLine(models.Model):
         store=True,
         string="User Partner Ref"
     )
+
+    def remove_move_reconcile(self):
+        if self.env.user.has_group('wsramsons.group_comercial'):
+            raise AccessError("No tienes permisos para romper conciliaciones.")
+        return super().remove_move_reconcile()
