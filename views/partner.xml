@@ -69,6 +69,22 @@
           groups="wsramsons.group_comercial"
           sequence="10"/>
 
+<!-- Mantener visible el menú Facturación › Clientes para el grupo comercial -->
+<record id="account.menu_finance_receivables" model="ir.ui.menu">
+    <field name="groups_id" eval="[(4, ref('wsramsons.group_comercial'))]"/>
+</record>
+
+<record id="contacts.menu_contacts" model="ir.ui.menu">
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')]) ]"/>
+</record>
+
+<menuitem id="wsramsons_menu_action_partner_customer_comercial"
+          name="Clientes"
+          parent="account.menu_finance_receivables"
+          action="wsramsons.action_account_res_partner_customer_comercial"
+          groups="wsramsons.group_comercial"
+          sequence="10"/>
+
 <record id="contacts.menu_contacts" model="ir.ui.menu">
     <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')]) ]"/>
 </record>
@@ -89,4 +105,27 @@
 <record id="account.res_partner_action_customer" model="ir.actions.act_window">
     <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')])]"/>
 </record>
+
+<!-- Acción filtrada para el menú CRM › Clientes, basada en odoo/addons/crm/views/crm_menu.xml -->
+<record id="action_crm_res_partner_customer_comercial" model="ir.actions.act_window">
+    <field name="name">Clientes</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">tree,kanban,form,activity,pivot,graph</field>
+    <field name="context">{'search_default_customer': 1, 'default_customer_rank': 1}</field>
+    <field name="domain">['|', ('user_id', '=', uid), ('parent_id.user_id', '=', uid)]</field>
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_comercial')])]"/>
+</record>
+
+<!-- Ajustar menú CRM › Clientes definido en odoo/addons/crm/views/crm_menu.xml -->
+<record id="crm.crm_menu_partner" model="ir.ui.menu">
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')])]"/>
+</record>
+
+<menuitem id="wsramsons_menu_crm_partner_comercial"
+          name="Clientes"
+          parent="crm.crm_menu_root"
+          action="wsramsons.action_crm_res_partner_customer_comercial"
+          groups="wsramsons.group_comercial"
+          sequence="40"/>
+
 </odoo>
