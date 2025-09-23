@@ -78,6 +78,17 @@
     <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')]) ]"/>
 </record>
 
+<menuitem id="wsramsons_menu_action_partner_customer_comercial"
+          name="Clientes"
+          parent="account.menu_finance_receivables"
+          action="wsramsons.action_account_res_partner_customer_comercial"
+          groups="wsramsons.group_comercial"
+          sequence="10"/>
+
+<record id="contacts.menu_contacts" model="ir.ui.menu">
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')]) ]"/>
+</record>
+
 <menuitem id="wsramsons_menu_contacts_comercial"
           name="Contactos"
           action="wsramsons.action_contacts_comercial"
@@ -116,4 +127,5 @@
           action="wsramsons.action_crm_res_partner_customer_comercial"
           groups="wsramsons.group_comercial"
           sequence="40"/>
+
 </odoo>
