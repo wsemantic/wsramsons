@@ -29,6 +29,7 @@
         'security/security_rules.xml',
         'views/product.xml',
         'views/partner.xml',
+        'views/sale_order.xml',
         'views/invoice.xml',
         'views/due_list.xml',
     ],
