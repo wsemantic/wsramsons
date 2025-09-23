@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+<!-- Inherit base.view_partner_form defined in odoo/addons/base/views/res_partner_views.xml -->
 <record id="view_partner_form_inherit_pcontacto" model="ir.ui.view">
     <field name="name">res.partner.form.inherit.pcontacto</field>
     <field name="model">res.partner</field>
@@ -18,18 +19,101 @@
 <record id="action_contacts_comercial" model="ir.actions.act_window">
     <field name="name">Contactos</field>
     <field name="res_model">res.partner</field>
-    <field name="view_mode">tree,form</field>
-    <field name="domain">['|', ('user_id','=',uid), ('parent_id.user_id','=',uid)]</field>
+    <field name="view_mode">kanban,tree,form,activity,pivot,graph</field>
+    <field name="domain">['|', ('user_id', '=', uid), ('parent_id.user_id', '=', uid)]</field>
     <field name="context">{}</field>
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_comercial')])]"/>
+</record>
+
+<!-- Acción filtrada para el menú de Ventas, basada en odoo/addons/sale/views/sale_menus.xml -->
+<record id="action_sale_res_partner_customer_comercial" model="ir.actions.act_window">
+    <field name="name">Clientes</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">tree,kanban,form,activity,pivot,graph</field>
+    <field name="context">{'search_default_customer': 1, 'default_customer_rank': 1}</field>
+    <field name="domain">['|', ('user_id', '=', uid), ('parent_id.user_id', '=', uid)]</field>
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_comercial')])]"/>
+</record>
+
+<!-- Ajustar menú Ventas › Clientes definido en odoo/addons/sale/views/sale_menus.xml -->
+<record id="sale.res_partner_menu" model="ir.ui.menu">
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')])]"/>
+</record>
+
+<menuitem id="wsramsons_menu_sale_partner_comercial"
+          name="Clientes"
+          parent="sale.sale_menu_root"
+          action="wsramsons.action_sale_res_partner_customer_comercial"
+          groups="wsramsons.group_comercial"
+          sequence="25"/>
+
+<!-- Acción filtrada para el menú Facturación › Clientes, basada en odoo/addons/account/views/res_partner_views.xml -->
+<record id="action_account_res_partner_customer_comercial" model="ir.actions.act_window">
+    <field name="name">Clientes</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">tree,kanban,form,activity,pivot,graph</field>
+    <field name="context">{'search_default_customer': 1, 'default_customer_rank': 1}</field>
+    <field name="domain">['|', ('user_id', '=', uid), ('parent_id.user_id', '=', uid)]</field>
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_comercial')])]"/>
+</record>
+
+<!-- Ajustar menú Facturación › Clientes definido en odoo/addons/account/views/account_menuitems.xml -->
+<record id="account.menu_account_customer" model="ir.ui.menu">
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')])]"/>
+</record>
+
+<menuitem id="wsramsons_menu_action_partner_customer_comercial"
+          name="Clientes"
+          parent="account.menu_finance_receivables"
+          action="wsramsons.action_account_res_partner_customer_comercial"
+          groups="wsramsons.group_comercial"
+          sequence="10"/>
+
+<!-- Mantener visible el menú Facturación › Clientes para el grupo comercial -->
+<record id="account.menu_finance_receivables" model="ir.ui.menu">
     <field name="groups_id" eval="[(4, ref('wsramsons.group_comercial'))]"/>
 </record>
 
 <record id="contacts.menu_contacts" model="ir.ui.menu">
-    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')])]"/>
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')]) ]"/>
 </record>
 
 <menuitem id="wsramsons_menu_contacts_comercial"
           name="Contactos"
           action="wsramsons.action_contacts_comercial"
           groups="wsramsons.group_comercial"/>
+
+<!-- Limitar la acción original de contactos a quienes pueden ver todos los registros -->
+<!-- Acción original: contacts.action_contacts en odoo/addons/contacts/views/contacts_views.xml -->
+<record id="contacts.action_contacts" model="ir.actions.act_window">
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')])]"/>
+</record>
+
+<!-- Limitar la acción original de clientes (ventas y facturación) -->
+<!-- Acción original: account.res_partner_action_customer en odoo/addons/account/views/res_partner_views.xml -->
+<record id="account.res_partner_action_customer" model="ir.actions.act_window">
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')])]"/>
+</record>
+
+<!-- Acción filtrada para el menú CRM › Clientes, basada en odoo/addons/crm/views/crm_menu.xml -->
+<record id="action_crm_res_partner_customer_comercial" model="ir.actions.act_window">
+    <field name="name">Clientes</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">tree,kanban,form,activity,pivot,graph</field>
+    <field name="context">{'search_default_customer': 1, 'default_customer_rank': 1}</field>
+    <field name="domain">['|', ('user_id', '=', uid), ('parent_id.user_id', '=', uid)]</field>
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_comercial')])]"/>
+</record>
+
+<!-- Ajustar menú CRM › Clientes definido en odoo/addons/crm/views/crm_menu.xml -->
+<record id="crm.crm_menu_partner" model="ir.ui.menu">
+    <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')])]"/>
+</record>
+
+<menuitem id="wsramsons_menu_crm_partner_comercial"
+          name="Clientes"
+          parent="crm.crm_menu_root"
+          action="wsramsons.action_crm_res_partner_customer_comercial"
+          groups="wsramsons.group_comercial"
+          sequence="40"/>
 </odoo>
