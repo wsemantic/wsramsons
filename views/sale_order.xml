@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_order_form_commercial_partner" model="ir.ui.view">
+        <field name="name">sale.order.form.commercial.partner</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="options" groups="wsramsons.group_comercial">{'no_open': True, 'no_create': True, 'no_create_edit': True}</attribute>
+                <attribute name="readonly" groups="wsramsons.group_comercial">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -43,7 +43,23 @@
         <field name="perm_read" eval="True"/>
         <field name="perm_write" eval="False"/>
         <field name="perm_create" eval="False"/>
-        <field name="perm_unlink" eval="False"/>		
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="base.res_partner_rule_private_employee" model="ir.rule">
+        <field name="groups" eval="[(6, 0, [ref('wsramsons.group_all_partner')])]"/>
+    </record>
+
+    <record id="wsramsons_res_partner_user_rule" model="ir.rule">
+        <field name="name">[wsramsons] Contactos: solo propios</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">['|', ('id', '=', user.partner_id.id), '|', ('id', '=', user.company_id.partner_id.id), '|', ('user_id', '=', user.id), ('parent_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('wsramsons.group_comercial'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="global" eval="True"/>
     </record>
 
 </odoo>
