@@ -117,7 +117,7 @@
 </record>
 
 <!-- Ajustar menú CRM › Clientes definido en odoo/addons/crm/views/crm_menu.xml -->
-<record id="crm.crm_menu_partner" model="ir.ui.menu">
+<record id="crm.res_partner_menu_customer" model="ir.ui.menu">
     <field name="groups_id" eval="[(6, 0, [ref('wsramsons.group_all_partner')])]"/>
 </record>
 
